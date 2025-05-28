@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Suffix Word Game for Kids</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(120deg, #ffecd2 0%, #fcb69f 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .game-box {
+      background: #fff4f4;
+      padding: 40px 30px;
+      border-radius: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 460px;
+      border: 4px dashed #ffc2d1;
+    }
+
+    h1 {
+      color: #ff6b81;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    #suffix {
+      font-size: 36px;
+      font-weight: bold;
+      color: #ff85a2;
+      margin: 15px 0;
+      background: #ffe9ec;
+      padding: 10px 20px;
+      border-radius: 15px;
+      display: inline-block;
+    }
+
+    p {
+      font-size: 18px;
+      color: #444;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 12px;
+      margin-top: 15px;
+      font-size: 16px;
+      border: 2px solid #ffc2d1;
+      border-radius: 15px;
+      outline: none;
+      transition: 0.2s;
+      background-color: #fff;
+    }
+
+    input[type="text"]:focus {
+      border-color: #ff85a2;
+    }
+
+    button {
+      background: #ff85a2;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 15px;
+      font-size: 16px;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      background: #ff6b81;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .emoji {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-box">
+    <div class="emoji">🧁🎉</div>
+    <h1>Suffix Word Game</h1>
+    <p>Can you think of a word that ends with:</p>
+    <div id="suffix">-ty</div>
+
+    <input type="text" id="userInput" placeholder="e.g. honesty, activity" />
+    <br />
+    <button onclick="submitWord()">✨ Submit ✨</button>
+
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const suffixes = ['-ty', '-ize', '-ate', '-ous', '-ful', '-ment', '-ness', '-al'];
+    let currentSuffix = '-ty';
+
+    function getRandomSuffix() {
+      return suffixes[Math.floor(Math.random() * suffixes.length)];
+    }
+
+    function submitWord() {
+      const input = document.getElementById('userInput');
+      const word = input.value.trim().toLowerCase();
+      const cleanSuffix = currentSuffix.replace('-', '');
+
+      if (word.endsWith(cleanSuffix)) {
+        document.getElementById("message").innerText = `✅ Yay! "${word}" ends with "${currentSuffix}"`;
+        document.getElementById("message").style.color = "green";
+        currentSuffix = getRandomSuffix();
+        document.getElementById("suffix").innerText = currentSuffix;
+      } else {
+        document.getElementById("message").innerText = `❌ Oops! "${word}" doesn't end with "${currentSuffix}"`;
+        document.getElementById("message").style.color = "red";
+      }
+
+      input.value = '';
+      input.focus();
+    }
+  </script>
+</body>
+</html>
